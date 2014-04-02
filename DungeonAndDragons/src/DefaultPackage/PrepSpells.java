@@ -5,7 +5,7 @@ public class PrepSpells extends spellRepertoire {
 		super.name = "PrepSpell";
 	}
 	public String getName(){
-		return name;
+		return super.name;
 	}
 	
 }

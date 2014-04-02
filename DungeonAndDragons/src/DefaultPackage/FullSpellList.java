@@ -25,7 +25,7 @@ public class FullSpellList extends spellRepertoire {
 	}
 	
 	public String getName(){
-		return name;
+		return super.name;
 	}
 	
 	public static ArrayList<Spell>[] parse() {

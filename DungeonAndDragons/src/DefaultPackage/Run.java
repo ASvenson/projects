@@ -38,23 +38,30 @@ public class Run implements Serializable {
 	//public static final long serialVersionUID;
 	
 	public Run() throws ClassNotFoundException{
-		if(check("knownSpells")){
-			System.out.println("read knownSpells savefile");
-			readSaveFile("KnownSpell.sav");
-		}else{
-			System.out.println("did not read knownSpells savefile");
-			knownSpells = new KnownSpells();
-		}
-		
-		if(check("fullSpellList")){
-			readSaveFile("prepSpell.sav");
-		}else{
-			prepSpells = new PrepSpells();
-		}
-		
+		initialize();
 		fullSpellList = new FullSpellList();
 		player = new Player();
 		
+	}
+	
+	public void initialize(){
+		if(check("knownSpell")){
+			System.out.println("read knownSpells savefile");
+			knownSpells = (KnownSpells) readSaveFile("KnownSpell.sav", "KnownSpell");
+			if(knownSpells == null){
+				System.out.println("change the null in knownSpell");
+				knownSpells = new KnownSpells();
+			}
+		}
+		
+		if(check("prepSpell")){
+			System.out.println("read prepSpells savefile");
+			prepSpells = (PrepSpells) readSaveFile("PrepSpell.sav", "PrepSpell");
+			if(prepSpells == null){
+				System.out.println("change the null in prepSpell");
+				prepSpells = new PrepSpells();
+			}
+		}
 	}
 	
 	public void save(){
@@ -269,19 +276,22 @@ public class Run implements Serializable {
 		
 		Spell spell = lookup("name", name, fullSpellList);
 		
-		//System.out.println("going into location.remove");
+		
 		location.remove(spell);
 		
 	}
-	public spellRepertoire readSaveFile(String loc){
-		String path = "E:/Users/Adrian/Documents/GitHub/projects/DungeonAndDragons/" + loc;
+	public spellRepertoire readSaveFile(String loc, String type){
+		
 		try{
-			FileInputStream fileInput = new FileInputStream(path);
-			ObjectInputStream objectInput = new ObjectInputStream(fileInput);
-			spellRepertoire spellRep = (spellRepertoire) objectInput.readObject();
-			objectInput.close();
-	 
-			return spellRep;
+			FileInputStream file = new FileInputStream(loc);
+			ObjectInputStream obFile = new ObjectInputStream(file);
+			spellRepertoire spellListClass = (spellRepertoire) obFile.readObject();
+			obFile.close();
+			
+//			
+			
+			return spellListClass;
+			
 		}catch(Exception ex){
 			ex.printStackTrace();
 			return null;

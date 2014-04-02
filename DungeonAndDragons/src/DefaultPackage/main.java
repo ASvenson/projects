@@ -95,6 +95,9 @@ public class main {
 			case "save":
 				run.save();
 				break;
+			case "init":
+				run.initialize();
+				break;
 			case "getKnownSpells":
 				if(args.length > 1){
 					run.getKnownSpells(args[1]);
