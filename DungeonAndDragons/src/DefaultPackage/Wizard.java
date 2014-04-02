@@ -1,5 +1,5 @@
 package DefaultPackage;
-import java.util.HashMap;
+
 
 
 public class Wizard extends PlClass {
@@ -44,9 +44,9 @@ public class Wizard extends PlClass {
 		return "arcane";
 	}
 	
-	public HashMap getKnownSpells(){
-		return knownSpells;
-	}
+//	public HashMap getKnownSpells(){
+//		return knownSpells;
+//	}
 	
 	public void mkKnownSpells(){
 		return;

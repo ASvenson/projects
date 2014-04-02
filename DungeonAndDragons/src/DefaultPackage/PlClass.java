@@ -5,10 +5,10 @@ import java.util.HashMap;
 public abstract class PlClass {
 	
 	int level;
-	HashMap knownSpells;
+	//HashMap knownSpells;
 	
 	public PlClass(int level){
-		int level;
+		this.level = level ;
 	}
 
 	public boolean isCaster(){
@@ -19,9 +19,6 @@ public abstract class PlClass {
 		return "non-caster";
 	}
 	
-	public HashMap getKnownSpells(){
-		return knownSpells;
-	}
 	
 	public void mkKnownSpells(){
 		return;

@@ -1,7 +1,7 @@
 package DefaultPackage;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+
 
 
 public abstract class spellRepertoire {
