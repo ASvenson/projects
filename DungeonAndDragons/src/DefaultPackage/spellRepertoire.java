@@ -4,10 +4,11 @@ import java.util.ArrayList;
 
 
 
-public abstract class spellRepertoire {
+public abstract class spellRepertoire implements java.io.Serializable {
 	
 	Player player;
 	ArrayList<Spell>[] spellList;
+	public String name;
 	
 	public spellRepertoire(){
 		spellList = new ArrayList[10];
@@ -18,6 +19,10 @@ public abstract class spellRepertoire {
 	}
 	public ArrayList<Spell>[] getList(){
 		return spellList;
+	}
+	
+	public String getName(){
+		return name;
 	}
 	
 	public void remove(Spell spell){

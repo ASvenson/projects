@@ -23,7 +23,8 @@ public class main {
 		
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		Run run = new Run();
-
+		
+		runLoop:
 		while(true){
 			String[] args = null;
 			System.out.print("Type a command: ");
@@ -51,7 +52,7 @@ public class main {
 							+ " prepare, prepare [spell], \n"
 							+ "learn [spell] , levelUp, tag [spell] with [tag], removeTag [tag]"
 							+ " from [spell], \n removeSpell [spell] from [location], "
-							+ "help [command]");
+							+ "save, help [command]");
 				} else {
 					String follow = args[1];
 					switch(follow){
@@ -90,6 +91,10 @@ public class main {
 						break;
 					}
 				}
+				break;
+			case "save":
+				run.save();
+				break;
 			case "getKnownSpells":
 				if(args.length > 1){
 					run.getKnownSpells(args[1]);
@@ -158,7 +163,7 @@ public class main {
 				}
 				break;
 			case "exit":
-				break;
+				break runLoop;
 			default:
 				System.out.println("Not a command. Type 'help' to get help");
 				break;

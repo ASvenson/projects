@@ -7,7 +7,9 @@ import java.util.ArrayList;
 
 public class KnownSpells extends spellRepertoire {
 	
+
 	public KnownSpells(){
+		super.name = "KnownSpell";
 		
 	}
 }

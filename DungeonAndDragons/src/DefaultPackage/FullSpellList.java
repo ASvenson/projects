@@ -20,6 +20,7 @@ public class FullSpellList extends spellRepertoire {
 	
 	public FullSpellList() throws ClassNotFoundException{
 		super.spellList = parse();
+		super.name = "FullSpellList";
 		//this works
 	}
 	

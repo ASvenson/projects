@@ -2,12 +2,17 @@ package DefaultPackage;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 //import java.io.FileInputStream;
 //import java.io.IOException;
 //import java.io.ObjectInputStream;
 import java.util.ArrayList;
 //import java.util.HashMap;
+
+
 
 
 
@@ -19,7 +24,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-public class Run {
+public class Run implements Serializable {
 	
 	FullSpellList fullSpellList;
 	KnownSpells knownSpells;
@@ -44,8 +49,40 @@ public class Run {
 		player = new Player();
 		
 	}
+	
+	public void save(){
+		mkSpellFile(knownSpells);
+		mkSpellFile(prepSpells);
+		mkSpellFile(fullSpellList);
+	}
+	
+	public void mkSpellFile(spellRepertoire spellList){
+		
+		String name = spellList.getName();
+		
+		try{  //to catch I/O
+			
+			// Open a file to write to, named SavedObj.sav.
+			FileOutputStream saveSpells = new FileOutputStream(name + ".sav");
+	
+			// Create an ObjectOutputStream to put object into save file.
+			ObjectOutputStream save = new ObjectOutputStream(saveSpells);
+	
+			// Now we do the save.
+			save.writeObject(spellList);
+	
+			// Close the file.
+			save.close();
+			
+			System.out.println("wrote " + name);
+			
+			}
+		catch(Exception exc){
+			exc.printStackTrace(); // If there was an error, print the info.
+		}
+	}
 
-	private boolean check(String loc) {
+	public boolean check(String loc) {
 		// TODO Auto-generated method stub
 		
 		String path = "E:/Users/Adrian/Documents/GitHub/projects/DungeonAndDragons/" + loc;
