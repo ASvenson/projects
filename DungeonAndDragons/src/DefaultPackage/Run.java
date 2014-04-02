@@ -1,11 +1,15 @@
 package DefaultPackage;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
 //import java.io.FileInputStream;
 //import java.io.IOException;
 //import java.io.ObjectInputStream;
 import java.util.ArrayList;
 //import java.util.HashMap;
+
+
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -24,12 +28,31 @@ public class Run {
 	Wizard wizard;
 	
 	public Run() throws ClassNotFoundException{
-		knownSpells = new KnownSpells();
-		prepSpells = new PrepSpells();
-		fullSpellList = new FullSpellList();
+		if(check("knownSpells")){
+			readSaveFile("knownSpells");
+		}else{
+			knownSpells = new KnownSpells();
+		}
 		
+		if(check("fullSpellList")){
+			readSaveFile("prepSpells");
+		}else{
+			prepSpells = new PrepSpells();
+		}
+		
+		fullSpellList = new FullSpellList();
 		player = new Player();
 		
+	}
+
+	private boolean check(String loc) {
+		// TODO Auto-generated method stub
+		
+		String path = "E:/Users/Adrian/Documents/GitHub/projects/DungeonAndDragons/" + loc;
+		File file = new File(path);
+		Boolean checkFile = file.isFile();
+		
+		return checkFile;
 	}
 
 	public void getKnownSpells(String tag) {
@@ -177,5 +200,19 @@ public class Run {
 		//System.out.println("going into location.remove");
 		location.remove(spell);
 		
+	}
+	public spellRepertoire readSaveFile(String loc){
+		String path = "E:/Users/Adrian/Documents/GitHub/projects/DungeonAndDragons/" + loc;
+		try{
+			FileInputStream fileInput = new FileInputStream(path);
+			ObjectInputStream objectInput = new ObjectInputStream(fileInput);
+			spellRepertoire spellRep = (spellRepertoire) objectInput.readObject();
+			objectInput.close();
+	 
+			return spellRep;
+		}catch(Exception ex){
+			ex.printStackTrace();
+			return null;
+		}
 	}
 }
