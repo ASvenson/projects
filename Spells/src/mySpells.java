@@ -47,7 +47,7 @@ public class mySpells {
 		if(player.canCast()){
 			HashMap knSpell = player.getKnownSpells();
 			
-			for(Integer i = 0; i > 10; i++){
+			for(Integer i = 0; i < 10; i++){
 				String key = i.toString();
 				int numSpellsAtLevel = (int) knSpell.get(key);
 				

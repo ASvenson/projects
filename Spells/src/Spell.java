@@ -56,7 +56,7 @@ public class Spell {
 	}
 	
 	public int getRange(){
-		int playerLevel = player.getLevel()
+		int playerLevel = player.getLevel();
 		return range ;
 	}
 	

@@ -3,11 +3,11 @@ import java.util.HashMap;
 
 public abstract class PlClass {
 	
-	boolean caster;
+	int level;
 	HashMap knownSpells;
 	
-	public PlClass(){
-		
+	public PlClass(int level){
+		int level;
 	}
 
 	public boolean isCaster(){

@@ -55,5 +55,7 @@ public class Wizard extends PlClass {
 		return perDay[spLevel-1];
 	}
 	
+	
+	
 
 }
