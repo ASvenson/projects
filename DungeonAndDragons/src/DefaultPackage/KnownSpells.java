@@ -12,4 +12,8 @@ public class KnownSpells extends spellRepertoire {
 		super.name = "KnownSpell";
 		
 	}
+	
+	public String getName(){
+		return name;
+	}
 }

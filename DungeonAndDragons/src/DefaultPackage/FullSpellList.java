@@ -24,6 +24,10 @@ public class FullSpellList extends spellRepertoire {
 		//this works
 	}
 	
+	public String getName(){
+		return name;
+	}
+	
 	public static ArrayList<Spell>[] parse() {
 		ArrayList<Spell>[] spells = new ArrayList[10];
 		for(int i = 0; i < 10; i++){

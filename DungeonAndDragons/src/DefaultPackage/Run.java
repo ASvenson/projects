@@ -3,6 +3,7 @@ package DefaultPackage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
@@ -11,6 +12,9 @@ import java.io.Serializable;
 //import java.io.ObjectInputStream;
 import java.util.ArrayList;
 //import java.util.HashMap;
+
+
+
 
 
 
@@ -31,16 +35,19 @@ public class Run implements Serializable {
 	PrepSpells prepSpells;
 	Player player;
 	Wizard wizard;
+	//public static final long serialVersionUID;
 	
 	public Run() throws ClassNotFoundException{
 		if(check("knownSpells")){
-			readSaveFile("knownSpells");
+			System.out.println("read knownSpells savefile");
+			readSaveFile("KnownSpell.sav");
 		}else{
+			System.out.println("did not read knownSpells savefile");
 			knownSpells = new KnownSpells();
 		}
 		
 		if(check("fullSpellList")){
-			readSaveFile("prepSpells");
+			readSaveFile("prepSpell.sav");
 		}else{
 			prepSpells = new PrepSpells();
 		}
@@ -51,12 +58,18 @@ public class Run implements Serializable {
 	}
 	
 	public void save(){
-		mkSpellFile(knownSpells);
-		mkSpellFile(prepSpells);
-		mkSpellFile(fullSpellList);
+		try {
+			mkSpellFile(knownSpells);
+			mkSpellFile(prepSpells);
+			//mkSpellFile(fullSpellList);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	
-	public void mkSpellFile(spellRepertoire spellList){
+	public void mkSpellFile(spellRepertoire spellList) throws ClassNotFoundException{
 		
 		String name = spellList.getName();
 		
@@ -80,12 +93,34 @@ public class Run implements Serializable {
 		catch(Exception exc){
 			exc.printStackTrace(); // If there was an error, print the info.
 		}
+		
+		//--------TESTING TO THE FILE------------
+		try {
+			 
+			FileInputStream file = new FileInputStream(name + ".sav");
+			ObjectInputStream obFile = new ObjectInputStream(file);
+			spellRepertoire spellListClass = (spellRepertoire) obFile.readObject();
+			obFile.close();
+			
+			ArrayList<Spell>[] spellListCheck = spellListClass.getList();
+			for(ArrayList<Spell> array: spellListCheck){
+				for(Spell s: array){
+					System.out.println(s.getName());
+				}
+			}
+			
+		} catch (IOException ex) {ex.printStackTrace();}
+				
+	}
+	
+	public void mkProperties(){
+		
 	}
 
 	public boolean check(String loc) {
 		// TODO Auto-generated method stub
 		
-		String path = "E:/Users/Adrian/Documents/GitHub/projects/DungeonAndDragons/" + loc;
+		String path = "E:/Users/Adrian/Documents/GitHub/projects/DungeonAndDragons/" + loc + ".sav";
 		File file = new File(path);
 		Boolean checkFile = file.isFile();
 		
